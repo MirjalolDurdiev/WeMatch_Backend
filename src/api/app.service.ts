@@ -32,10 +32,10 @@ export class Application {
 
     app.useGlobalPipes(
       new ValidationPipe({
-        whitelist: true, // Faqat DTO ichidagi maydonlarni qabul qiladi, ortiqcha maydonlarni o‘chirib tashlaydi
-        // forbidNonWhitelisted: true,  // Ortib ketgan maydonlar bo‘lsa xatolik qaytaradi
-        forbidNonWhitelisted: false, // DTO da yo‘q maydonlar bloklanmasin
-        transform: true, // String qiymatlarni avtomatik mos tipga o‘zgartiradi (masalan, number yoki boolean)
+        whitelist: true, 
+        // forbidNonWhitelisted: true,  
+        forbidNonWhitelisted: false, 
+        transform: true, 
       }),
     );
 

@@ -81,15 +81,6 @@ export class OpportunityService {
       searchFields,
     );
   }
-
-  // async findAll(paginationDto: PaginationDto, filterDto?: FilterDto): Promise<any> {
-  //   const queryBuilder = this.opportunityRepository.createQueryBuilder('opportunity');
-
-  //   const searchFields = ['opportunity.title', 'opportunity.description'];
-
-  //   return await QueryHelperService.paginateAndFilter(queryBuilder, paginationDto, filterDto, searchFields);
-  // }
-
   async findAll(
     pagination?: PaginationDto,
     filter?: OpportunityFilterDto,
@@ -345,7 +336,6 @@ export class OpportunityService {
       where: { id },
       relations: ['organization'],
     });
-    console.log('opportunity', opportunity);
 
     if (!opportunity) {
       throw new NotFoundException('Opportunity not found');

@@ -48,7 +48,6 @@ export class SkillController {
   @RolesDecorator(UserRoles.USER)
   @Get()
   async findAll(@CurrentUser() user: UserEntity) {
-    console.log(user);
     return this.skillService.findAll(user);
   }
 

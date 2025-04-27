@@ -4,19 +4,17 @@ import { IsEmail, IsNotEmpty, IsString, MinLength, MaxLength } from 'class-valid
 export class LoginDto {
     @ApiProperty({
         example: 'example@example.com',
-        description: 'Foydalanuvchi email manzili',
+        description: 'User email address',
     })
-    @IsEmail({}, { message: 'Email manzil noto‘g‘ri formatda' })
-    @IsNotEmpty({ message: 'Email bo‘sh bo‘lishi mumkin emas' })
+    @IsEmail({}, { message: 'Email format incorrect' })
+    @IsNotEmpty({ message: 'Email cannot be empty' })
     email: string;
 
     @ApiProperty({
         example: 'StrongPassword123!',
-        description: 'Foydalanuvchi paroli',
+        description: 'User password',
     })
-    @IsString({ message: 'Parol matn bo‘lishi kerak' })
-    // @MinLength(8, { message: 'Parol kamida 8 ta belgidan iborat bo‘lishi kerak' })
-    // @MaxLength(32, { message: 'Parol maksimal 32 ta belgidan oshmasligi kerak' })
-    @IsNotEmpty({ message: 'Parol bo‘sh bo‘lishi mumkin emas' })
+    @IsString({ message: 'Password should be string' })
+    @IsNotEmpty({ message: 'Password cannot be empty' })
     password: string;
 }

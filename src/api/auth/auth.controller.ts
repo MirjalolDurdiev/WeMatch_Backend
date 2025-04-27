@@ -15,18 +15,7 @@ import { UserEntity } from "src/core/entity";
 export class AuthController {
     constructor(private readonly authService: AuthService) { }
 
-
-    // @Post("register")
-    // @Public()
-    // @ApiBody({ type: RegisterDto })
-    // @ApiResponse({ status: 201, description: "User registered successfully." })
-    // @ApiResponse({ status: 400, description: "Bad Request." })
-    // async register(@Body() registerDto: RegisterDto) {
-    //     return this.authService.register(registerDto);
-    // }
-
-
-    // **1️⃣ Ro‘yxatdan o‘tish (OTP yuborish)**
+    //  Ro‘yxatdan o‘tish (OTP yuborish)**
     @Post("register")
     @Public()
     @ApiBody({ type: RegisterDto })
@@ -35,7 +24,7 @@ export class AuthController {
         return this.authService.register(registerDto);
     }
 
-    // **2️⃣ OTP-ni tasdiqlash va ro‘yxatdan o‘tkazish**
+    // OTP-ni tasdiqlash va ro‘yxatdan o‘tkazish**
     @Post("verify-otp")
     @Public()
     @ApiBody({ type: VerifyOtpDto })
@@ -44,7 +33,6 @@ export class AuthController {
     async verifyOtp(@Body() { email, otp }: VerifyOtpDto) {
         return this.authService.verifyOtp(email, otp);
     }
-    // **2️⃣ Login qilish**
     @Post("login")
     @Public()
     @ApiBody({ type: LoginDto })
@@ -88,7 +76,7 @@ export class AuthController {
     @ApiResponse({ status: 200, description: "Password updated successfully." })
     @ApiResponse({ status: 401, description: "Current password is incorrect." })
     async updatePassword(@Req() req, @Body() updatePasswordDto: UpdatePasswordDto) {
-        const userId = req.user.id;  // Token orqali foydalanuvchi ID'sini olish
+        const userId = req.user.id; 
         return this.authService.updatePassword(userId, updatePasswordDto);
     }
 
@@ -114,22 +102,4 @@ export class AuthController {
         return this.authService.resetPassword(email, otp);
     }
 
-
-
-    // @Put("update-password-with-token")
-    // @ApiBearerAuth('access-token')
-    // @Public()
-    // @ApiBody({
-    //     description: "Update password using the reset token",
-    //     type: ResetPasswordWithTokenDto,
-    // })
-    // @ApiResponse({ status: 200, description: "Password updated successfully." })
-    // @ApiResponse({ status: 401, description: "Invalid password update token." })
-    // async updatePasswordWithToken(
-    //     @Body() resetPasswordDto: ResetPasswordWithTokenDto,
-    //     @CurrentUser() user: UserEntity
-    // ) {
-    //     console.log(user)
-    //     return this.authService.updatePasswordWithToken(resetPasswordDto, user);
-    // }
 }

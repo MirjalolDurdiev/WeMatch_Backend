@@ -31,7 +31,7 @@ export class ApplicationController {
   async updateStatus(
     @Param('id') id: string,
     @Body() updateApplicationDto: UpdateApplicationDto,
-    @CurrentUser() organization: OrganizationEntity, // Organization entity expected here
+    @CurrentUser() organization: OrganizationEntity,
   ) {
     return this.applicationService.updateStatus(id, updateApplicationDto, organization.id);
   }

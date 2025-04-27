@@ -17,7 +17,6 @@ export class ApplicationService {
     private readonly opportunityRepository: Repository<OpportunityEntity>,
   ) { }
 
-  // ✅ Foydalanuvchi faqat ariza yaratishi mumkin
   async create(createApplicationDto: CreateApplicationDto, user: UserEntity): Promise<ApplicationEntity> {
     const opportunity = await this.opportunityRepository.findOne({
       where: { id: createApplicationDto.opportunityId }
@@ -35,8 +34,6 @@ export class ApplicationService {
 
     return await this.applicationRepository.save(application);
   }
-
-  // ✅ Organization faqat statusni o'zgartira oladi
   async updateStatus(id: string, updateApplicationDto: UpdateApplicationDto, organizationId: string): Promise<ApplicationEntity> {
     const application = await this.applicationRepository.findOne({
       where: { id },
@@ -47,7 +44,6 @@ export class ApplicationService {
       throw new NotFoundException('Application not found');
     }
 
-    // Faqat opportunity'ni egasi (organization) statusni o'zgartira oladi
     if (application.opportunity.organization.id !== organizationId) {
       throw new ForbiddenException('You are not allowed to update this application');
     }

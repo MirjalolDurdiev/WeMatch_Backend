@@ -27,8 +27,6 @@ export class EducationService {
         ...createEducationDto,
         user,
       });
-      console.log('education', education);
-      console.log('createEducationDto', createEducationDto);
       return await this.educationRepository.save(education);
     } catch (error) {
       throw new InternalServerErrorException(

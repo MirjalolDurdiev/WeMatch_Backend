@@ -72,7 +72,7 @@ export class UserService {
       return { status: 200, data: user, message: 'User retrieved with relations' };
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw error; // Rethrow if it's a NotFoundException
+        throw error;
       }
       throw new InternalServerErrorException('Error retrieving user: ' + error.message);
     }
@@ -89,7 +89,7 @@ export class UserService {
       return { status: 200, data: user, message: 'User retrieved successfully' };
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw error; // Rethrow if it's a NotFoundException
+        throw error; 
       }
       throw new InternalServerErrorException('Error retrieving user: ' + error.message);
     }

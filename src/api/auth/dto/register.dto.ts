@@ -1,11 +1,11 @@
 import { ApiProperty, ApiTags } from "@nestjs/swagger";
 import { IsEmail, IsNotEmpty, Length, MinLength } from "class-validator";
 
-@ApiTags("Auth") // Swagger da "Auth" bo'limiga kiritish
+@ApiTags("Auth")
 export class RegisterDto {
     @ApiProperty({
         example: "John Doe",
-        description: "Foydalanuvchining to‘liq ismi",
+        description: "User full name",
         required: true
     })
     @IsNotEmpty()
@@ -13,7 +13,7 @@ export class RegisterDto {
 
     @ApiProperty({
         example: "user@example.com",
-        description: "Foydalanuvchining elektron pochta manzili",
+        description: "User email address",
         format: "email",
         required: true
     })

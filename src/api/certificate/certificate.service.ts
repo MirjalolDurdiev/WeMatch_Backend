@@ -57,7 +57,6 @@ export class CertificateService {
 
     if (file) {
       if (certificate.image) {
-        console.log(certificate.image)
         await this.fileService.deleteFile(certificate.image);
       }
       certificate.image = await this.fileService.saveFile(file);

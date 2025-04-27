@@ -252,8 +252,6 @@ export class OpportunityController {
     @Param('id') id: string,
     @CurrentUser() user: OrganizationEntity,
   ) {
-    console.log('GET opportunity by ID, user:', user);
-    console.log('id:', id);
     return this.opportunityService.getById(id, user);
   }
 }

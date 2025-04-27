@@ -13,27 +13,26 @@ export class SkillService {
     private readonly skillRepository: Repository<SkillEntity>,
   ) {}
 
-  // Malaka yaratish
+  
   async create(
     createSkillDto: CreateSkillDto,
     user: UserEntity,
   ): Promise<SkillEntity> {
     const skill = this.skillRepository.create({
       ...createSkillDto,
-      user, // Skillni foydalanuvchiga bog'lash
+      user,
     });
 
     return await this.skillRepository.save(skill);
   }
 
-  // Foydalanuvchining barcha malakalarini olish
+
   async findAll(user: UserEntity): Promise<SkillEntity[]> {
     return await this.skillRepository.find({
       where: { user },
     });
   }
 
-  // Foydalanuvchining ma'lum bir malakasini olish
   async findOne(id: string, user: UserEntity): Promise<SkillEntity> {
     const skill = await this.skillRepository.findOne({
       where: { id, user },
@@ -46,7 +45,6 @@ export class SkillService {
     return skill;
   }
 
-  // Malakani yangilash
   async update(
     id: string,
     updateSkillDto: UpdateSkillDto,
@@ -66,7 +64,6 @@ export class SkillService {
     return updatedSkill;
   }
 
-  // Malakani o'chirish
   async remove(id: string, user: UserEntity): Promise<void> {
     const skill = await this.findOne(id, user);
 
@@ -89,7 +86,7 @@ export class SkillService {
       .getMany();
 
     return skills.map((skill) => {
-      const { user, ...skillWithoutUser } = skill; // user maydonini skill obyektidan ajratamiz
+      const { user, ...skillWithoutUser } = skill; 
       return { user, skill: skillWithoutUser };
     });
   }

@@ -33,14 +33,14 @@ export class ResetPasswordDto {
         example: '123456',
     })
     @IsString()
-    otp: string;  // OTP kodini kiritish
+    otp: string;  
 
     @ApiProperty({
         description: 'The reset token required to reset the password',
         example: 'some-reset-token',
     })
     @IsString()
-    email: string;  // Reset token
+    email: string;  
 
 }
 export class ResetPasswordWithTokenDto {

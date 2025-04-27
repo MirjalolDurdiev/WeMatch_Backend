@@ -31,28 +31,6 @@ export class AuthService {
     @InjectRepository(OrganizationEntity)
     private readonly organizationRepository: Repository<OrganizationEntity>,
   ) {}
-
-  // **1️⃣ Foydalanuvchini ro‘yxatdan o‘tkazish**
-  // async register(registerDto: RegisterDto) {
-  //     const { email, password, name } = registerDto;
-
-  //     const existingUser = await this.userRepository.findOne({ where: { email, is_deleted: false } });
-  //     if (existingUser) {
-  //         throw new ConflictException("Email already registered.");
-  //     }
-
-  //     // OTP generatsiya qilish
-  //     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-
-  //     // OTPni Redisda saqlash (10 daqiqaga)
-  //     await this.redisService.set(`register_otp:${email}`, otp, 600);
-
-  //     // Emailga yuborish
-  //     await this.customMailerService.sendOtpEmail(email, otp);
-
-  //     return { message: "OTP sent to your email. Please verify to complete registration." };
-  // }
-
   // **1️⃣ Ro‘yxatdan o‘tish (OTP yuborish)**
   async register(registerDto: RegisterDto) {
     const { email, password, conifirmPassword, name } = registerDto;
@@ -96,7 +74,7 @@ export class AuthService {
     return { message: 'OTP sent to email. Please verify.' };
   }
 
-  // **2️⃣ OTP tasdiqlash va ro‘yxatdan o‘tkazish**
+  //  OTP tasdiqlash va ro‘yxatdan o‘tkazish**
   async verifyOtp(email: string, otp: string) {
     // Redisdan saqlangan ma'lumotlarni olish
     const data = await this.redisService.get(`register_otp:${email}`);
@@ -106,10 +84,6 @@ export class AuthService {
     }
 
     const { name, password, otp: savedOtp } = JSON.parse(data);
-
-    // if (!password) {
-    //     throw new BadRequestException("Password is missing in OTP verification.");
-    // }
 
     if (savedOtp !== otp) {
       throw new UnauthorizedException('Invalid OTP.');
@@ -130,7 +104,7 @@ export class AuthService {
     return this.generateTokens(user.id, user.email, user.role);
   }
 
-  // **2️⃣ Login qilish**
+  //Login qilish**
   async login(email: string, password: string) {
     const user = await this.userRepository.findOne({
       where: { email, is_deleted: false },
@@ -193,7 +167,7 @@ export class AuthService {
     );
   }
 
-  // **3️⃣ Parolni yangilash**
+  //Parolni yangilash**
   async updatePassword(userId: string, updatePasswordDto: UpdatePasswordDto) {
     const { currentPassword, newPassword } = updatePasswordDto;
     const user = await this.userRepository.findOne({ where: { id: userId } });
@@ -218,7 +192,7 @@ export class AuthService {
     return { message: 'Password updated successfully.' };
   }
 
-  // **4️⃣ Parolni tiklash – Email yuborish**
+  // Parolni tiklash – Email yuborish**
   async forgotPassword(email: string) {
     const user = await this.userRepository.findOne({
       where: { email, is_deleted: false },
@@ -241,7 +215,7 @@ export class AuthService {
     };
   }
 
-  // **5️⃣ Parolni tiklash – Yangi parol o‘rnatish (OTP orqali)**
+  //  Parolni tiklash – Yangi parol o‘rnatish (OTP orqali)**
   async resetPassword(email: string, otp: string) {
     try {
       // Validate OTP
@@ -282,30 +256,6 @@ export class AuthService {
     }
   }
 
-  // // **6️⃣ Parolni yangilash**
-  // async updatePasswordWithToken(resetPasswordDto: ResetPasswordWithTokenDto, currentUser) {
-  //     try {
-  //         // Verify the new password token
-
-  //         // Find the user by email
-  //         const user = await this.userRepository.findOne({ where: { email: currentUser.email, is_deleted: false, password: currentUser.password } });
-  //         if (!user) {
-  //             throw new NotFoundException("User not found.");
-  //         }
-
-  //         // Encrypt the new password
-  //         user.password = await BcryptEncryption.encrypt(resetPasswordDto.newPassword);
-  //         await this.userRepository.save(user);
-
-  //         // Delete OTP from Redis after use (Optional)
-  //         await this.redisService.deleteByText(`reset_otp:${currentUser.email}`);
-
-  //         return { message: "Password updated successfully." };
-  //     } catch (error) {
-  //         throw new UnauthorizedException("Invalid password update token.");
-  //     }
-  // }
-
   async refreshToken(refreshToken: string) {
     try {
       // Verify refresh token
@@ -345,7 +295,7 @@ export class AuthService {
     }
   }
 
-  // **7️⃣ Access va refresh token yaratish**
+  //Access va refresh token yaratish**
   private async generateTokens(userId: string, email: string, role: string) {
     const payload = { id: userId, email, role };
 
